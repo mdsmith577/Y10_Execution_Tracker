@@ -94,7 +94,18 @@ html {
     margin-top: 1%;
     margin-bottom: 1%;
     border-radius: inherit;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    object-fit: cover;
 }
+
+.child img {
+    object-fit: cover;
+}
+
 
 .placeholder {
     padding: 0%;
