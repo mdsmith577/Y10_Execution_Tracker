@@ -111,6 +111,15 @@ html {
     object-fit: cover;
 }
 
+.images {
+    height: 97%;
+    width: 97%;
+}
+
+#pie-container {
+    box-sizing: border-box;
+}
+
 
 #map-id {
     height: 96%;
