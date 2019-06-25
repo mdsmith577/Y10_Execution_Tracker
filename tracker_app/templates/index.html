@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css">
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <!-- FOR DETAILED TABLE -->
+    <link href="https://unpkg.com/bootstrap-table@1.15.0/dist/bootstrap-table.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/bootstrap-table@1.15.0/dist/bootstrap-table.min.js"></script>
+
+    <!-- Load React API -->
+    <script src= "https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <!-- Load React DOM-->
+    <script src= "https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <!-- Load Babel Compiler -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <link rel="stylesheet" href="static/css/style.css">
+
+
+
+
+    <!--THESE LINKS SUPPORT THE FAVICON -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!--THESE LINKS SUPPORT THE FAVICON -->
+
+
+
+    <style>
+        @media only screen and (max-width: 400px) {
+                .textbox0 { /*FOR VERY SMALL SCREENS*/
+                              width: 95%;
+                              color: white;
+                              background-color: #124d81;
+                              border: 2px solid #212529;
+                              float: left;
+                              margin-left: 2.5%;
+                              margin-right: 2.5%;
+                              margin-top: 77px;
+                              margin-bottom: 0px;
+                              border-radius: 10px;
+                              text-align: center;
+                              vertical-align: middle;
+                }
+                #selDataset { /*FOR VERY SMALL SCREENS*/
+                              font-size: 1.7vw;
+                              width: 30%;
+                              height: 50%;
+                              float: left;
+                              margin-left: 35%;
+                              margin-right: 35%;
+                              margin-top: 3px;
+                              margin-bottom: 5px;
+                }
+                #selDataset option { /*FOR VERY SMALL SCREENS*/
+                              font-size: 1.7vw;
+                              width: 30%;
+                              margin: 0%;
+                }
+
+        }
+
+        @media only screen and (min-width: 1200px) {
+                .parent { /*FOR LARGER SCREENS*/
+                        width: 80%;
+                        height: 82%;
+                        color: white;
+                        background-color: #337ab7;
+                        border: 2px solid #212529;
+                        float: left;
+                        margin-left: 10%;
+                        margin-right: 10%;
+                        margin-top: 5px;
+                        margin-bottom: 25px;
+                        border-radius: 10px;
+                        border-top-right-radius: 0px;
+                        border-top-left-radius: 0px;
+                        padding: 15px;
+                }
+                .textbox { /*FOR LARGER SCREENS*/
+                        width: 80%;
+                        color: white;
+                        background-color: #124d81;
+                        border: 2px solid #212529;
+                        float: left;
+                        margin-left: 10%;
+                        margin-right: 10%;
+                        margin-top: 40px;
+                        margin-bottom: 0px;
+                        border-radius: 10px;
+                        text-align: center;
+                        vertical-align: middle;
+                        border-bottom-right-radius: 0px;
+                        border-bottom-left-radius: 0px;
+                }
+                .textbox1 { /*FOR LARGER SCREENS*/
+                        width: 80%;
+                        color: white;
+                        background-color: #124d81;
+                        border: 2px solid #212529;
+                        float: left;
+                        margin-left: 10%;
+                        margin-right: 10%;
+                        margin-top: 10px;
+                        margin-bottom: 0px;
+                        border-radius: 10px;
+                        text-align: center;
+                        vertical-align: middle;
+                        border-bottom-right-radius: 0px;
+                        border-bottom-left-radius: 0px;
+                }
+                .textbox0 { /*FOR LARGER SCREENS*/
+                        width: 80%;
+                        color: white;
+                        background-color: #124d81;
+                        border: 2px solid #212529;
+                        float: left;
+                        margin-left: 10%;
+                        margin-right: 10%;
+                        margin-top: 88px;
+                        margin-bottom: 0px;
+                        border-radius: 10px;
+                        text-align: center;
+                        vertical-align: middle;
+                        /* border-bottom-right-radius: 0px;
+                        border-bottom-left-radius: 0px; */
+                }
+                .sectionTitle { /*FOR LARGER SCREENS*/
+                        margin: 0;
+                        position: inherit;
+                        top: 50%;
+                        font-size: 1.7vw;
+                }
+                .sectionTitle1 { /*FOR LARGER SCREENS*/
+                        margin: 0;
+                        position: inherit;
+                        top: 50%;
+                        font-size: 1.4vw;
+                }
+                /* .detailTable {
+                        width: 100%;
+                } */
+                .child { /*FOR LARGER SCREENS*/
+                        /* object-fit: fill; */
+                        border: 2px solid #212529;
+                        font-size: 25px;
+                        height: 100%;
+                        width: 100%;
+                        margin: 0%;
+                        background-color: white;
+                }
+                .images { /*FOR LARGER SCREENS*/
+                        width: 97%;
+                        object-fit: cover;
+                }
+                #map-id { /*FOR LARGER SCREENS*/
+                        height: 97%;
+                        /* padding: 0;
+                        margin: 0; */
+                }
+                .navigation { /*FOR LARGER SCREENS*/
+                        text-align: center;
+                        vertical-align: middle;
+                        fill: #124d81;
+                }
+                #selDataset { /*FOR LARGER SCREENS*/
+                        font-size: 1.4vw;
+                        width: 30%;
+                        height: 50%;
+                        float: left;
+                        margin-left: 35%;
+                        margin-right: 35%;
+                        margin-top: 3px;
+                        margin-bottom: 5px;
+                }
+                #selDataset option { /*FOR LARGER SCREENS*/
+                        font-size: 1.4vw;
+                        width: 30%;
+                        margin: 0%;
+                }
+                .text-center { /*FOR LARGER SCREENS*/
+                        font-size: 2.8vw;
+                        margin-left: 3vw;
+                        margin-right: 0px;
+                        margin-top: 0px;
+                        margin-bottom: 0px;
+                        /* width: 100% - 200px - 1rem; */
+                }
+                img.logo{ /*FOR LARGER SCREENS*/
+                        width: 200px;
+                        margin-left: 18vw;
+                        margin-right: 0px;
+                        margin-top: 0px;
+                        margin-bottom: 0px;
+                        background-color: #ffffff!important;
+                        opacity: 0.8;
+                        border-radius: 10px;
+                        /* border: 1.5px solid #124d81; */
+                        border: 1.5px solid #bd3b51;
+                }
+                .bg-light { /*FOR LARGER SCREENS*/
+                        background-color: #c7475d!important;
+                        border-bottom: 2px solid #212529;
+                }
+
+                /*INTERESTING COLORS/TRANSPARENCIES FOR NAV-BAR */
+                /* background-color: #e71c3aa8!important */
+                /* background-color: rgba(0,123,255,.5)!important */
+                /* background-color: #d71f3fc7 */
+                /* background-color: #c7475d */
+                .table {
+                        width: 100%;
+                        margin-bottom: 1rem;
+                        color: #212529;
+                        font-size: 1.4vw;
+                }
+        }
+        
+
+    </style>
+    <title>WAG Program Tracker</title>
+  </head>
+  <body>
+      <!-- <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/logic.js') }}"></script> -->
+
+
+        <nav id="navigation" class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+                <img class="logo" src="static/wandglogo1.png">
+                <h4 class="text-center">Walgreens May-June 2019 Y10 Tracker</h4>
+                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                </button> -->
+                
+                <!-- REMOVED MENU BUTTON -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!-- <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Recap Views</a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="index.html">Recap Table</a>
+                                                <a class="dropdown-item" href="index.html">Heat Map</a>
+                                                <a class="dropdown-item" href="index.html">Store Detail</a>
+                                                <a class="dropdown-item" href="index.html">Progress Chart</a>                        
+                                        </div>
+                                </li>
+                        </ul> -->
+                </div>
+        </nav>
+
+
+
+        <div id="recapArea" class="textbox0">
+                <p class="sectionTitle1">Select a Geography:</p>
+
+                <select id="selDataset" onchange="getData(this.value)">
+                    <option value="national_view">*National, by Area</option>
+                    <option value="national_region_view">*National, by Region</option>
+                    <option value="national_state_view">*National, by State</option>
+                    <option value="national_dist_view">*National, by Distributor</option>
+                    <option value="west_area">-Western Area</option>
+                    <option value="south_region">Southern Region (TX/AZ/LA)</option>
+                    <option value="west_region">Western Region (CA/WA/OR/NV)</option>
+                    <option value="east_area">-Eastern Area</option>
+                    <option value="s_east_region">Southeast Region (FL/GA/AL)</option>
+                    <option value="atlantic_region">Atlantic Region (NC/VA/SC/DC)</option>
+                    <option value="north_area">-Northern Area</option>
+                    <option value="midwest_region">Midwest Region (IL/MO/IN/WI)</option>
+                    <option value="central_region">Central Region (OH/MI)</option>
+                    <option value="n_east_region">Northeast Region (NH)</option>
+                    <option value="mega_area">-Mega Area</option>
+                    <option value="mega_east">Mega East (KY/AR/ME/OK/WV/VT)</option>
+                    <option value="mega_west">Mega West (IA/NE/ID/HI/MT/SD/NM)</option>
+                </select>
+
+        </div>
+
+
+
+        <div id="recapArea" class="textbox1">
+                <p class="sectionTitle">Program Case Opportunity by Geography</p>
+        </div>
+        <div id="recap" class="parent">
+                <div class="child">
+                        <div id="bar"></div>
+                </div>
+        </div>
+
+
+
+        <div id="heatArea" class="textbox">
+                <p class="sectionTitle">Program Execution Map</p>
+        </div>
+        <div id="heat" class="parent">
+                <div class="child">
+                        <div id="map-id"></div>
+                </div>
+        </div>
+
+
+
+        <div id="detailArea" class="textbox">
+                <p class="sectionTitle">Total Store Detail Table</p>
+        </div>
+        <div id="detail" class="parent">
+                <div class="child">
+                                <table id="dtVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
+                                width="100%">
+                                <thead>
+                                  <tr>
+                                    <th class="th-sm">Name
+                                    </th>
+                                    <th class="th-sm">Position
+                                    </th>
+                                    <th class="th-sm">Office
+                                    </th>
+                                    <th class="th-sm">Age
+                                    </th>
+                                    <th class="th-sm">Start date
+                                    </th>
+                                    <th class="th-sm">Salary
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Garrett Winters</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>63</td>
+                                    <td>2011/07/25</td>
+                                    <td>$170,750</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Ashton Cox</td>
+                                    <td>Junior Technical Author</td>
+                                    <td>San Francisco</td>
+                                    <td>66</td>
+                                    <td>2009/01/12</td>
+                                    <td>$86,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Cedric Kelly</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2012/03/29</td>
+                                    <td>$433,060</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Airi Satou</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>33</td>
+                                    <td>2008/11/28</td>
+                                    <td>$162,700</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Brielle Williamson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>New York</td>
+                                    <td>61</td>
+                                    <td>2012/12/02</td>
+                                    <td>$372,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Herrod Chandler</td>
+                                    <td>Sales Assistant</td>
+                                    <td>San Francisco</td>
+                                    <td>59</td>
+                                    <td>2012/08/06</td>
+                                    <td>$137,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Rhona Davidson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>Tokyo</td>
+                                    <td>55</td>
+                                    <td>2010/10/14</td>
+                                    <td>$327,900</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Colleen Hurst</td>
+                                    <td>Javascript Developer</td>
+                                    <td>San Francisco</td>
+                                    <td>39</td>
+                                    <td>2009/09/15</td>
+                                    <td>$205,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Sonya Frost</td>
+                                    <td>Software Engineer</td>
+                                    <td>Edinburgh</td>
+                                    <td>23</td>
+                                    <td>2008/12/13</td>
+                                    <td>$103,600</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Jena Gaines</td>
+                                    <td>Office Manager</td>
+                                    <td>London</td>
+                                    <td>30</td>
+                                    <td>2008/12/19</td>
+                                    <td>$90,560</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Quinn Flynn</td>
+                                    <td>Support Lead</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2013/03/03</td>
+                                    <td>$342,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Charde Marshall</td>
+                                    <td>Regional Director</td>
+                                    <td>San Francisco</td>
+                                    <td>36</td>
+                                    <td>2008/10/16</td>
+                                    <td>$470,600</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Haley Kennedy</td>
+                                    <td>Senior Marketing Designer</td>
+                                    <td>London</td>
+                                    <td>43</td>
+                                    <td>2012/12/18</td>
+                                    <td>$313,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Tatyana Fitzpatrick</td>
+                                    <td>Regional Director</td>
+                                    <td>London</td>
+                                    <td>19</td>
+                                    <td>2010/03/17</td>
+                                    <td>$385,750</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Michael Silva</td>
+                                    <td>Marketing Designer</td>
+                                    <td>London</td>
+                                    <td>66</td>
+                                    <td>2012/11/27</td>
+                                    <td>$198,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Paul Byrd</td>
+                                    <td>Chief Financial Officer (CFO)</td>
+                                    <td>New York</td>
+                                    <td>64</td>
+                                    <td>2010/06/09</td>
+                                    <td>$725,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Gloria Little</td>
+                                    <td>Systems Administrator</td>
+                                    <td>New York</td>
+                                    <td>59</td>
+                                    <td>2009/04/10</td>
+                                    <td>$237,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Bradley Greer</td>
+                                    <td>Software Engineer</td>
+                                    <td>London</td>
+                                    <td>41</td>
+                                    <td>2012/10/13</td>
+                                    <td>$132,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Dai Rios</td>
+                                    <td>Personnel Lead</td>
+                                    <td>Edinburgh</td>
+                                    <td>35</td>
+                                    <td>2012/09/26</td>
+                                    <td>$217,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Jenette Caldwell</td>
+                                    <td>Development Lead</td>
+                                    <td>New York</td>
+                                    <td>30</td>
+                                    <td>2011/09/03</td>
+                                    <td>$345,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Yuri Berry</td>
+                                    <td>Chief Marketing Officer (CMO)</td>
+                                    <td>New York</td>
+                                    <td>40</td>
+                                    <td>2009/06/25</td>
+                                    <td>$675,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Caesar Vance</td>
+                                    <td>Pre-Sales Support</td>
+                                    <td>New York</td>
+                                    <td>21</td>
+                                    <td>2011/12/12</td>
+                                    <td>$106,450</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Doris Wilder</td>
+                                    <td>Sales Assistant</td>
+                                    <td>Sidney</td>
+                                    <td>23</td>
+                                    <td>2010/09/20</td>
+                                    <td>$85,600</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Angelica Ramos</td>
+                                    <td>Chief Executive Officer (CEO)</td>
+                                    <td>London</td>
+                                    <td>47</td>
+                                    <td>2009/10/09</td>
+                                    <td>$1,200,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Gavin Joyce</td>
+                                    <td>Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>42</td>
+                                    <td>2010/12/22</td>
+                                    <td>$92,575</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Jennifer Chang</td>
+                                    <td>Regional Director</td>
+                                    <td>Singapore</td>
+                                    <td>28</td>
+                                    <td>2010/11/14</td>
+                                    <td>$357,650</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Brenden Wagner</td>
+                                    <td>Software Engineer</td>
+                                    <td>San Francisco</td>
+                                    <td>28</td>
+                                    <td>2011/06/07</td>
+                                    <td>$206,850</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Fiona Green</td>
+                                    <td>Chief Operating Officer (COO)</td>
+                                    <td>San Francisco</td>
+                                    <td>48</td>
+                                    <td>2010/03/11</td>
+                                    <td>$850,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Shou Itou</td>
+                                    <td>Regional Marketing</td>
+                                    <td>Tokyo</td>
+                                    <td>20</td>
+                                    <td>2011/08/14</td>
+                                    <td>$163,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Michelle House</td>
+                                    <td>Integration Specialist</td>
+                                    <td>Sidney</td>
+                                    <td>37</td>
+                                    <td>2011/06/02</td>
+                                    <td>$95,400</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Suki Burks</td>
+                                    <td>Developer</td>
+                                    <td>London</td>
+                                    <td>53</td>
+                                    <td>2009/10/22</td>
+                                    <td>$114,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Prescott Bartlett</td>
+                                    <td>Technical Author</td>
+                                    <td>London</td>
+                                    <td>27</td>
+                                    <td>2011/05/07</td>
+                                    <td>$145,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Gavin Cortez</td>
+                                    <td>Team Leader</td>
+                                    <td>San Francisco</td>
+                                    <td>22</td>
+                                    <td>2008/10/26</td>
+                                    <td>$235,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Martena Mccray</td>
+                                    <td>Post-Sales support</td>
+                                    <td>Edinburgh</td>
+                                    <td>46</td>
+                                    <td>2011/03/09</td>
+                                    <td>$324,050</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Unity Butler</td>
+                                    <td>Marketing Designer</td>
+                                    <td>San Francisco</td>
+                                    <td>47</td>
+                                    <td>2009/12/09</td>
+                                    <td>$85,675</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Howard Hatfield</td>
+                                    <td>Office Manager</td>
+                                    <td>San Francisco</td>
+                                    <td>51</td>
+                                    <td>2008/12/16</td>
+                                    <td>$164,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Hope Fuentes</td>
+                                    <td>Secretary</td>
+                                    <td>San Francisco</td>
+                                    <td>41</td>
+                                    <td>2010/02/12</td>
+                                    <td>$109,850</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Vivian Harrell</td>
+                                    <td>Financial Controller</td>
+                                    <td>San Francisco</td>
+                                    <td>62</td>
+                                    <td>2009/02/14</td>
+                                    <td>$452,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Timothy Mooney</td>
+                                    <td>Office Manager</td>
+                                    <td>London</td>
+                                    <td>37</td>
+                                    <td>2008/12/11</td>
+                                    <td>$136,200</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Jackson Bradshaw</td>
+                                    <td>Director</td>
+                                    <td>New York</td>
+                                    <td>65</td>
+                                    <td>2008/09/26</td>
+                                    <td>$645,750</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Olivia Liang</td>
+                                    <td>Support Engineer</td>
+                                    <td>Singapore</td>
+                                    <td>64</td>
+                                    <td>2011/02/03</td>
+                                    <td>$234,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Bruno Nash</td>
+                                    <td>Software Engineer</td>
+                                    <td>London</td>
+                                    <td>38</td>
+                                    <td>2011/05/03</td>
+                                    <td>$163,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Sakura Yamamoto</td>
+                                    <td>Support Engineer</td>
+                                    <td>Tokyo</td>
+                                    <td>37</td>
+                                    <td>2009/08/19</td>
+                                    <td>$139,575</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Thor Walton</td>
+                                    <td>Developer</td>
+                                    <td>New York</td>
+                                    <td>61</td>
+                                    <td>2013/08/11</td>
+                                    <td>$98,540</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Finn Camacho</td>
+                                    <td>Support Engineer</td>
+                                    <td>San Francisco</td>
+                                    <td>47</td>
+                                    <td>2009/07/07</td>
+                                    <td>$87,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Serge Baldwin</td>
+                                    <td>Data Coordinator</td>
+                                    <td>Singapore</td>
+                                    <td>64</td>
+                                    <td>2012/04/09</td>
+                                    <td>$138,575</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Zenaida Frank</td>
+                                    <td>Software Engineer</td>
+                                    <td>New York</td>
+                                    <td>63</td>
+                                    <td>2010/01/04</td>
+                                    <td>$125,250</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Zorita Serrano</td>
+                                    <td>Software Engineer</td>
+                                    <td>San Francisco</td>
+                                    <td>56</td>
+                                    <td>2012/06/01</td>
+                                    <td>$115,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Jennifer Acosta</td>
+                                    <td>Junior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>43</td>
+                                    <td>2013/02/01</td>
+                                    <td>$75,650</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Cara Stevens</td>
+                                    <td>Sales Assistant</td>
+                                    <td>New York</td>
+                                    <td>46</td>
+                                    <td>2011/12/06</td>
+                                    <td>$145,600</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Hermione Butler</td>
+                                    <td>Regional Director</td>
+                                    <td>London</td>
+                                    <td>47</td>
+                                    <td>2011/03/21</td>
+                                    <td>$356,250</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Lael Greer</td>
+                                    <td>Systems Administrator</td>
+                                    <td>London</td>
+                                    <td>21</td>
+                                    <td>2009/02/27</td>
+                                    <td>$103,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Jonas Alexander</td>
+                                    <td>Developer</td>
+                                    <td>San Francisco</td>
+                                    <td>30</td>
+                                    <td>2010/07/14</td>
+                                    <td>$86,500</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Shad Decker</td>
+                                    <td>Regional Director</td>
+                                    <td>Edinburgh</td>
+                                    <td>51</td>
+                                    <td>2008/11/13</td>
+                                    <td>$183,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Michael Bruce</td>
+                                    <td>Javascript Developer</td>
+                                    <td>Singapore</td>
+                                    <td>29</td>
+                                    <td>2011/06/27</td>
+                                    <td>$183,000</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Donna Snider</td>
+                                    <td>Customer Support</td>
+                                    <td>New York</td>
+                                    <td>27</td>
+                                    <td>2011/01/25</td>
+                                    <td>$112,000</td>
+                                  </tr>
+                                </tbody>
+                                <tfoot>
+                                  <tr>
+                                    <th>Name
+                                    </th>
+                                    <th>Position
+                                    </th>
+                                    <th>Office
+                                    </th>
+                                    <th>Age
+                                    </th>
+                                    <th>Start date
+                                    </th>
+                                    <th>Salary
+                                    </th>
+                                  </tr>
+                                </tfoot>
+                              </table>
+                </div>
+        </div>
+
+
+        <!-- REMOVED FOR NOW --> 
+        <!-- <div id="progressArea" class="textbox">
+                <p class="sectionTitle">Program Progress</p>
+        </div>
+        <div id="progress" class="parent">
+                <div class="child">
+                        <a class="images"><img src="4.png" width=97% height=97% alt=""></a>
+                </div>
+        </div>                         -->
+
+
+        <div id="footer" class="footer-copyright text-center py-3">Questions? Contact Mike Smith at:<a href="Mike.Smith@ejgallo.com"> Mike.Smith@ejgallo.com</a></div>
+        
+        <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+        <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
+
+        <!-- <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/logic.js') }}"></script> -->
+
+  </body>
+</html>
